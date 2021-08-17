@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Slot = ({ page }) => {
 	
@@ -10,13 +10,50 @@ const Slot = ({ page }) => {
 	const setPageTitle = useStoreActions(actions => actions.setPageTitle)
 
 	useEffect(() => {
-		if (pages.length != 0)
+		if (pages.length != 0) {
+			console.log(page)
 			setPageTitle(page.title)
+		}
 	}, [pages])
 
-	return (
-		<section>
 
+
+	return (
+		<section id="slugged">
+			
+			<div className="header">
+				<p>Ajouter, editer, supprimer des <strong>{page.editable_type.toUpperCase()}</strong> depuis le navigateur si dessous</p>
+			</div>
+
+			<div className="editor">
+				<button className="btn add">Ajouter</button>
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">
+								<p>Nom</p>
+							</th>
+							<th scope="col">
+								<p>Status</p>
+							</th>
+							<th scope="col">
+								<p>Auteur</p>
+							</th>
+							<th scope="col">
+								<p>Updated at</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>3,000</td>
+							<td>18,000</td>
+							<td>3,000</td>
+							<td>18,000</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</section>
 	)
 }

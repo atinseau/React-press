@@ -8,3 +8,17 @@ html, * {
 li {
 	list-style: none;
 }
+
+button {
+	background: none;
+	outline: none;
+	border: none;
+}
+
+button.btn {
+	background-color: black;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 10px;
+	cursor: pointer;
+}

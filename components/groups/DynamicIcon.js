@@ -11,7 +11,7 @@ import axios from 'axios'
  */
 const DynamicIcon = ({ name }) => {
 
-	const [icon, setIcon] = useState(renderToString(<RiLoaderFill/>))
+	const [icon, setIcon] = useState(null)
 	const [ready, setReady] = useState(false)
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ const DynamicIcon = ({ name }) => {
 			})
 		}
 	})
-	return (parse(icon))
+	return (icon ? parse(icon) : <RiLoaderFill/>)
 }
 
 export default DynamicIcon

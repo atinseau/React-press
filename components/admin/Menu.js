@@ -9,13 +9,10 @@ const AdminMenu = ({active, setActive}) => {
 	
 	const { asPath } = useRouter()
 	const [fetching, setFetching] = useState(false)
-
 	const pageReady = useStoreState(state => state.pageReady)
 	const pages = useStoreState(state => state.pages)
-	
 	const setPages = useStoreActions(actions => actions.setPages)
 	const setPageReady = useStoreActions(actions => actions.setPageReady)
-	const setPageTitle = useStoreActions(actions => actions.setPageTitle)
 
 	useEffect(() => {
 		if(!pageReady && !fetching) {
@@ -41,7 +38,6 @@ const AdminMenu = ({active, setActive}) => {
 			
 			<ul suppressHydrationWarning={true} className={(active) ? 'active' : ''}>
 				{pages.map((page, i) => <li onClick={() => {
-					setPageTitle("")
 					router.push(page.domain + page.slug)
 				}} className={(page.domain + page.slug == asPath ? 'selected' : '')} key={i}>
 						<DynamicIcon name={page.icons}/>

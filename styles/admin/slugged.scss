@@ -1,3 +1,41 @@
 @import '../function';
 
 
+section#slugged {
+	margin-top: 30px;
+	div.header {
+		border-radius: 10px;
+		padding: 20px;
+		background-color: #f0f1f7;
+		p {
+			color: rgb(175, 175, 175);
+			font-weight: 400;
+			strong {
+				color: black;
+			} 
+		}
+	}
+
+	div.editor {
+		button.add {
+			margin-top: 30px;
+		}
+
+		table {
+			width: -webkit-fill-available;
+			thead {
+				border-bottom: 1px solid grey;
+				tr {
+					th {
+						color: #919191;
+						font-weight: 400;
+						font-size: 16px;
+						p {
+							text-align: left;
+						}
+					}
+				}
+			}
+		}
+	}
+}
