@@ -1,16 +1,11 @@
 
-import { Div, Heading, Button } from '../components'
-
-const Bunch = [
-	Div, Heading, Button
-]
-
-console.log (Bunch)
+import Link from 'next/link'
 
 export default function Home() {
   return (
-	<>
-		{Bunch.map(C => <C>Salut</C>)}
-	</>
+	<div>
+		<h1>Home</h1>
+		<Link href="/admin">Allez admin</Link>
+	</div>
   )
 }

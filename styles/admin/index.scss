@@ -1,0 +1,103 @@
+@import '../_function';
+
+section#admin {
+	font-family: 'Poppins', sans-serif;
+	@include flex-r;
+	> nav#admin__menu {
+		height: 100vh;
+		transition: left 0.5s;
+		background: rgb(248, 247, 247);
+		position: absolute;
+		top: 0;
+		left: -140px;
+
+		&:hover {
+			left: -130px;
+			&:not(&.active) {
+				cursor: grab;
+			}
+		}
+
+		&.active {
+			left: 0;
+		}
+
+		div.header {
+			margin: 10px 10px 20px 10px;
+			@include flex-r;
+			align-items: center;
+			justify-content: center;
+			h1 {
+				font-size: 22px;
+			}
+			button.dropdown {
+				@include flex-m;
+				cursor: pointer;
+				font-size: 20px;
+				margin-left: 12px;
+				background: none;
+				outline: none;
+				border: none;
+			}
+		}
+		margin-right: 20px;
+
+		> ul {
+			overflow: hidden;
+			width: 0;
+			transition: width 0.5s;
+			&.active {
+				width: 200px;
+			}
+
+			li {
+				@include flex-r;
+				align-items: center;
+				cursor: pointer;
+				color: grey;
+				font-weight: 300;
+				margin: 10px 18px;
+				padding: 10px 0;
+				border-radius: 10px;
+				:nth-child(1) {
+					width: 22px;
+					min-width: 22px;
+					font-size: 22px;
+					margin-left: 6px;
+					margin-right: 10px;
+				}
+
+				&.selected {
+					font-weight: 500;
+					background-color: black;
+					color: white;
+					fill: white;
+
+					&:hover {
+						p {
+							width: 100%;
+							margin-right: 10px;
+							border-right: 2px solid white;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	main {
+		margin-left: 40px;
+		width: -webkit-fill-available;
+		height: 100vh;
+		&.menu__opened {
+			cursor: pointer;
+		}
+
+		header {
+			
+		}
+	}
+}
+
+
+@import "slugged"

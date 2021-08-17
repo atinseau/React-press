@@ -1,14 +1,28 @@
+import { useRouter } from 'next/router';
+import { StoreProvider } from 'easy-peasy';
+import { admin } from '../store/admin';
+
+import AdminLayout from '../components/admin/Layout';
+
 import '../styles/global.scss'
 
-function MyApp({ Component, pageProps }) {
-	const pageLayout = Component.getLayout || ((page) => page);
-	return pageLayout(
-		<Component {...pageProps} />
+function ReactPress({ Component, pageProps }) {
+
+	const { pathname } = useRouter()
+
+	if (pathname.includes('admin')) {
+		return (
+			<StoreProvider store={admin}>
+				<AdminLayout>
+					<Component {...pageProps} />
+				</AdminLayout> 
+			</StoreProvider>
+		)
+	}
+
+	return (
+		<Component {...pageProps}/>
 	); 
 }
 
-MyApp.getInitialProps = async (appContext) => {
-	return {...{}}
-}
-
-export default MyApp
+export default ReactPress

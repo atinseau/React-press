@@ -1,10 +1,31 @@
-import { createStore, action } from 'easy-peasy';
-// import { RiHome3Line, RiPagesLine, RiSettings5Line } from 'react-icons/ri'
+import { createStore, action, persist } from 'easy-peasy';
 
-export const store = createStore({
+const model = {
+	active: false,
 	pages: [],
-	addPage: action ((state, page) => {
-		state.pages.push(page)
+	pageReady: false,
+	pageTitle: "",
+
+	setActive: action ((state, active) => {
+		state.active = active
+	}),
+	setPages: action ((state, pages) => {
+		state.pages = pages
+	}),
+	setPageReady: action((state, ready) => {
+		state.pageReady = ready
+	}),
+	setPageTitle: action((state, title) => {
+		state.pageTitle = title
 	})
-});
+}
+
+export const admin = createStore(
+	persist(model, {
+		deny: ['active', 'pages', 'pageReady', 'pageTitle']
+	})
+);
+
+// 'pages', 'pageReady'
+
 

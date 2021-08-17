@@ -1,26 +1,21 @@
-import { useState } from 'react'
-import { StoreProvider } from 'easy-peasy';
-import { store } from '../../store/admin';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useEffect } from 'react';
+import AdminHeader from './Header';
 import AdminMenu from "./Menu"
 
-const AdminLayout = ({children}) => {
-	const [active, setActive] = useState(false)
-
-	const toggleMenu = function () {
-		if (active)
-			setActive(false)
-	}
-
+const AdminLayout = ({ children }) => {
+	
+	const active = useStoreState(state => state.active)
+	const setActive = useStoreActions(actions => actions.setActive)
+	
 	return (
-		<StoreProvider store={store}>
-			<section id="admin">
-				<AdminMenu setActive={setActive} active={active}/>
-				<main onClick={toggleMenu} className={(active) ? "menu__opened": null}>
-					{children}
-				</main>
-			</section>
-		</StoreProvider>
-		
+		<section id="admin">
+			<AdminMenu active={active} setActive={setActive}/>
+			<main onClick={() => setActive(!active)} className={(active) ? "menu__opened": ""}>
+				<AdminHeader/>
+				{children}
+			</main>
+		</section>
 	)
 }
 

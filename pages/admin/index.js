@@ -1,7 +1,5 @@
 
-import { AdminLayout } from '../../components'
-
-const AdminHome = (props) => {
+const Index = (props) => {
 
 	return (
 		<>
@@ -10,8 +8,4 @@ const AdminHome = (props) => {
 	)
 }
 
-AdminHome.getLayout = (page) => (
-	<AdminLayout children={page}/>
-)
-
-export default AdminHome
+export default Index
