@@ -9,8 +9,6 @@ const Slot = ({ page }) => {
 	const pages = useStoreState(state => state.pages)
 	const setPageTitle = useStoreActions(actions => actions.setPageTitle)
 
-	const [count, setCount] = useState(0)
-
 	useEffect(() => {
 		if (pages.length != 0)
 			setPageTitle(page.title)
