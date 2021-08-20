@@ -1,8 +1,7 @@
 
 import { NextApiRequest, NextApiResponse } from "next"
-import { qfetch } from "../../../graphql/function"
-import { adminMeta } from "../../../graphql/schema/query_admin"
-import { createModel, getModelsByType } from "../../../graphql/schema/global"
+import { createModel, qfetch } from "../../../graphql/function"
+import { getModelsByType } from "../../../graphql/schema/global"
 
 
 const defaultPage = [
@@ -28,12 +27,18 @@ const defaultPage = [
 	}
 ]
 
+const adminMeta = `
+	icons
+	domain
+	editable_type
+`
+
 /**
  * 
  * @param {NextApiRequest} req
  * @param {NextApiResponse} res
  */
-export default async function getAdminPages (req, res) {
+export default async function AdminPages (req, res) {
 	
 	let adminPages = []
 	

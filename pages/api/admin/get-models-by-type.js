@@ -7,9 +7,15 @@ import { getModelsByType } from '../../../graphql/schema/global'
 * @param {NextApiRequest} req
 * @param {NextApiResponse} res
 */
-export default async function getModels (req, res) {
+export default async function ModelsByType (req, res) {
 
-	const { editable_type: type } = req.body
+	const { type } = req.body
+
+	if (type == undefined || type == null) {
+		res.status(204).json({
+			message: "Type is undefined"
+		})
+	}
 
 	const { models } = (await qfetch(getModelsByType, { type })).types[0]
 

@@ -1,7 +1,4 @@
 import { gql } from 'graphql-request'
-import { qfetch } from "../function"
-import Ajv from "ajv"
-
 
 const defaultModels = `
 	slug
@@ -47,90 +44,31 @@ const getMetaModelById = gql`
 
 /**
  * 
- * @param {String} query 
+ * @example qfetch(this, { type: x })
+ * @returns {Array} data
  */
-const queryToObject = (query) => {
-	const array = query.split('\n').filter(e => e.length > 0).map(e => e.replace('\t', ''))
-	const obj = {}
-	array.map((value) => {
-		obj[value] = null
-	})
-	return obj
-}
-
-
-const Model = {
-	metaGetted: false,
-	cpy () {
-		const n = {...this}
-		Object.keys(this).forEach((e) => {
-			if (typeof this[e] !== "function")
-				this[e] = null
-		})
-		this.metaGetted = false
-		return n
-	},
-	toJSON() {
-		const {cpy, fetch, isValid, toJSON, metaGetted, ...j} = this
-		return j
-	},
-	async fetch (model) {
-		Object.keys(model).map((key) => {
-			if (typeof this[key] != "undefined")
-				this[key] = model[key]
-		})
-		if (this.id != null) {
-			const data = await qfetch(getMetaModelById, { id: this.id })
-			if (data) {
-				const { meta_model: meta } = data
-				this.metaGetted = true
-				meta.map((m) => {
-					if (typeof this[m.meta_type.name] != "undefined")
-						this[m.meta_type.name] = m.value
-				})
-			}
+const getMetaTypeByType = gql`
+	query MetaTypeByType($type_id: uuid) {
+		meta_type(where: {type_id: {_eq: $type_id}}) {
+			id
+			name
 		}
-		return this.cpy()
-	},
-	isValid() {
-		if (this.metaGetted) {
-			const ajv = new Ajv()
-			const properties = {}
-			const keys = Object.keys(this.toJSON())
-			keys.map((e) => {
-				properties[e] = {
-					type: (typeof this[e]).toLowerCase()
-				}
-			})
-			const schema = {
-				type: "object",
-				properties: properties,
-				required: keys,
-				additionalProperties: false
-			}
-			const validate = ajv.compile(schema)
-			const e = validate(this.toJSON())
-			if (!e) console.log(validate.errors)
-			return e
+	}
+`
+
+const getMetaByMetaTypeAndModel = gql`
+	query MetaByMetaTypeAndModel($meta_type: uuid = "", $model: uuid = "") {
+		meta_model(where: {meta_type_id: {_eq: $meta_type}, _and: {model_id: {_eq: $model}}}) {
+			value
+			id
 		}
-		return false
 	}
-}
-
-const createModel = async (property, model) => {
-	const m = {...Model, ...queryToObject(defaultModels + property)}
-
-	return {
-		...await m.fetch(model)
-	}
-}
-
+`
 
 export {
 	defaultModels,
 	getMetaModelById,
 	getModelsByType,
-	queryToObject,
-	Model,
-	createModel
+	getMetaTypeByType,
+	getMetaByMetaTypeAndModel
 }

@@ -65,35 +65,45 @@ section#model__editor {
 
 		div.model__property {
 			overflow-y: scroll;
-			background-color: white;
 			height: -webkit-fill-available;
 			border-radius: 10px;
-			margin: 0 10px;
+			margin: 0 10px 10px 10px;
 			ul {
 				margin: 10px;
 				li {
-					color: grey;
+					color: black;
 					> p {
 						font-size: 12px;
-						text-transform: uppercase;	
+						text-transform: uppercase;
 					}
 				}
 			}
 		}
 
 		div.save {
-			margin: 10px;
-			padding: 20px 10px;
+			margin: 0 10px 10px 10px;
+			padding: 12px 10px 10px 12px;
 			background: #e6e7ed;
 			@include flex-c;
+			pointer-events: none;
 			align-items: center;
 			border-radius: 10px;
 			p {
+				font-size: 14px;
 				font-weight: 300;
 			}
+
+			&.active {
+				pointer-events: all !important;
+				div.save__status {
+					background: green;
+				}
+			}
+
 			span {
+				position: relative;
 				@include flex-m;
-				margin-top: 10px;
+				margin-top: 8px;
 				cursor: pointer;
 				text-transform: uppercase;
 				background: black;
@@ -104,6 +114,22 @@ section#model__editor {
 					fill: white;
 					padding: 5px 0;
 					width: 25px;
+				}
+
+				div.save__status {
+					@include flex-m;
+					position: absolute;
+					top: -5px;
+					border-radius: 50%;
+					width: 20px;
+					height: 20px;
+					background: red;
+					right: -5px;
+					svg {
+						fill: white;
+						width: 15px;
+						height: 15px;
+					}
 				}
 			}
 		}

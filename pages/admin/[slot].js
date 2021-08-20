@@ -29,8 +29,8 @@ const Slot = ({ page }) => {
 
 	useEffect(async () => {
 		if (!done) {
-			const { data } = await axios.post("/api/admin/get-models", {
-				editable_type: page.editable_type
+			const { data } = await axios.post("/api/admin/get-models-by-type", {
+				type: page.editable_type
 			})
 			setDone(true)
 			setModels(data)
