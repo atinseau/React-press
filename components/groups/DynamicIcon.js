@@ -12,19 +12,19 @@ import axios from 'axios'
 const DynamicIcon = ({ name }) => {
 
 	const [icon, setIcon] = useState(null)
-	const [ready, setReady] = useState(false)
-
+	
 	useEffect(() => {
-		if (!ready) {
-			axios.get(process.env.CDN_ICON + name + ".svg").then(({data}) => {
+		let sub = true
+		axios.get(process.env.CDN_ICON + name + ".svg").then(({data}) => {
+			if(sub)
 				setIcon(data)
-				setReady(true)
-			}).catch(() => {
+		}).catch(() => {
+			if (sub)
 				setIcon(renderToString(<RiErrorWarningFill/>))
-				setReady(true)
-			})
-		}
+		})
+		return () => sub = false
 	})
+
 	return (icon ? parse(icon) : <RiLoaderFill/>)
 }
 

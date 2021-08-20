@@ -21,18 +21,74 @@ section#slugged {
 			margin-top: 30px;
 		}
 
-		table {
+		div.table {
+			font-weight: 400;
+			margin-top: 20px;
 			width: -webkit-fill-available;
-			thead {
-				border-bottom: 1px solid grey;
-				tr {
-					th {
-						color: #919191;
-						font-weight: 400;
+			div.table__head {
+				border-bottom: 1px solid rgb(238, 238, 238);
+				margin-bottom: 10px;
+				margin-left: 4px;
+				margin-right: 4px;
+				ul {
+					margin-bottom: 20px;
+					display: grid;
+					grid-template-columns: repeat(5, 1fr);
+					li {
+						color: #bbbaba;
 						font-size: 16px;
 						p {
 							text-align: left;
 						}
+					}
+				}
+			}
+
+			div.table__body {
+				> ul {
+					margin-bottom: 10px;
+					display: grid;
+					grid-template-columns: repeat(5, 1fr);
+					li {
+						@include flex-r;
+						align-items: center;
+						span {
+							margin-right: 10px;
+							display: flex;
+							content: "";
+							width: 8px;
+							height: 8px;
+							&.active {
+								background: rgb(0, 172, 0);
+							}
+							background: red;
+							border-radius: 50%;
+						}
+
+						> ul.controls {
+							@include flex-r;
+							justify-content: flex-end;
+							width: 100%;
+							li {
+								svg {
+									cursor: pointer;
+									margin-left: 10px;
+									width: 20px;
+								}
+							}
+							$controls:
+								1#5374fe,
+								2#ef95ac,
+								3#fed80b;
+							@each $i, $control in $controls {
+								li:hover:nth-child(#{$i}) {
+									svg {
+										fill: $control;
+									}	
+								}
+							}
+						}
+						color: rgb(95, 95, 95);
 					}
 				}
 			}

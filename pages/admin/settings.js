@@ -11,7 +11,7 @@ const Settings = (props) => {
 	}, [pageTitle])
 
 	return (
-		<></>
+		<h1>salut</h1>
 	)
 }
 
