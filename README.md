@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b49ce3f33018420d9b6d395693296e72)](https://app.codacy.com/gh/alphagameX/React-press?utm_source=github.com&utm_medium=referral&utm_content=alphagameX/React-press&utm_campaign=Badge_Grade_Settings)
+
 First, run the development server:
 
 ```bash
