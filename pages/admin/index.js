@@ -11,9 +11,7 @@ const Index = (props) => {
 	}, [pageTitle])
 
 	return (
-		<>
-			<h1></h1>
-		</>
+		<h1>Admon</h1>
 	)
 }
 

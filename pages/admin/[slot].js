@@ -108,7 +108,17 @@ Slot.defaultProps = {
 
 export async function getStaticPaths () {
 
-	const data = (await axios.get(process.env.API + 'api/admin/get-admin-pages')).data
+	const data = (await axios.get(process.env.API + 'api/admin/get-admin-pages').catch(() => {
+		return {
+			data: null
+		}
+	})).data
+	if (!data) {
+		return {
+			paths: [],
+			fallback: 'blocking'
+		}
+	}
 
 	const allowedPage = []
 	data.filter(page => page.id != null).forEach(page => {
@@ -127,9 +137,17 @@ export async function getStaticPaths () {
 
 export async function getStaticProps ({params}) {
 
-	const data = (await axios.get(process.env.API + 'api/admin/get-admin-pages')).data
+	const data = (await axios.get(process.env.API + 'api/admin/get-admin-pages').catch(() => {
+		return {
+			data: null
+		}
+	})).data
+	if (!data) {
+		return {
+			props: {}
+		}
+	}
 	const page = data.filter(page => page.slug.replace('/', '') == params.slot)[0]
-
 	return {
 		props: {
 			page

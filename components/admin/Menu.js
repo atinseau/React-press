@@ -23,6 +23,8 @@ const AdminMenu = ({active, setActive}) => {
 				setPages(p)
 				setPageReady(true)
 				setFetching(false)
+			}).catch((err) => {
+				console.log(err)
 			})
 		}	
 	})
