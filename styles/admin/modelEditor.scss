@@ -100,35 +100,39 @@ section#model__editor {
 				}
 			}
 
-			span {
-				position: relative;
-				@include flex-m;
-				margin-top: 8px;
-				cursor: pointer;
-				text-transform: uppercase;
-				background: black;
-				width: fit-content;
-				padding: 0 20px;
-				border-radius: 10px;
-				svg {
-					fill: white;
-					padding: 5px 0;
-					width: 25px;
-				}
-
-				div.save__status {
+			div.controls {
+				@include flex-r;
+				span {
+					margin: 0 5px;
+					position: relative;
 					@include flex-m;
-					position: absolute;
-					top: -5px;
-					border-radius: 50%;
-					width: 20px;
-					height: 20px;
-					background: red;
-					right: -5px;
+					margin-top: 8px;
+					cursor: pointer;
+					text-transform: uppercase;
+					background: black;
+					width: fit-content;
+					padding: 0 20px;
+					border-radius: 10px;
 					svg {
 						fill: white;
-						width: 15px;
-						height: 15px;
+						padding: 5px 0;
+						width: 25px;
+					}
+	
+					> div.save__status {
+						@include flex-m;
+						position: absolute;
+						top: -5px;
+						border-radius: 50%;
+						width: 20px;
+						height: 20px;
+						background: red;
+						right: -5px;
+						svg {
+							fill: white;
+							width: 15px;
+							height: 15px;
+						}
 					}
 				}
 			}

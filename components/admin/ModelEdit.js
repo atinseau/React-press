@@ -7,6 +7,8 @@ import DynamicIcon from "../groups/DynamicIcon"
 const ModelEdit = ({model, toggle}) => {
 	const [door, setDoor] = useState(false)
 	const [out, setOut] = useState(false)
+	const [metaFetch, setMetaFetch] = useState(false)
+
 	const [state, actions] = useLocalStore(
 		() => ({
 			model,
@@ -58,16 +60,17 @@ const ModelEdit = ({model, toggle}) => {
 	)
 
 	useEffect(() => {
-		if (state.meta.length > 0 && state.saveCount == 0) {
+		if (metaFetch && state.saveCount == 0) {
 			actions.makeSave()
 		}
-	}, [state.meta])
+	}, [metaFetch])
 
 	useEffect(async () => {
-		if (state.meta.length != 0)
+		if (metaFetch)
 			return
 		const meta = []
 		const { data: metaTypes } = await axios.post('/api/admin/get-meta-type-by-type', { type: model.type_id })
+		console.log(metaTypes)
 		for(let i = 0; i < metaTypes.length; i++) {
 			const { data: metaModel } = await axios.post('/api/admin/get-meta-by-meta-type-and-model', {
 				meta_type: metaTypes[i].id,
@@ -79,7 +82,7 @@ const ModelEdit = ({model, toggle}) => {
 				value: metaModel.value
 			})
 		}
-		actions.setMeta(meta)
+		setMetaFetch(true)
 	})
 
 
@@ -104,12 +107,17 @@ const ModelEdit = ({model, toggle}) => {
 				</div>
 				<div className={state.hasDiff ? "save active" : "save"}>
 					<p>Sauvegarder les modifications ?</p>
-					<span onClick={updateModel}>
-						<div className="save__status">
-							<DynamicIcon name={state.hasDiff ? "check-line" : "close-line"}/>
-						</div>
-						<DynamicIcon name="download-2-fill"/>
-					</span>
+					<div className="controls">
+						<span onClick={updateModel}>
+							<div className="save__status">
+								<DynamicIcon name={state.hasDiff ? "check-line" : "close-line"}/>
+							</div>
+							<DynamicIcon name="download-2-fill"/>
+						</span>
+						{state.hasDiff ? <span>
+							<DynamicIcon name="restart-line"/>
+						</span> : ""}
+					</div>
 				</div>
 				<div className="model__property">
 
