@@ -1,0 +1,171 @@
+{
+  "resource_version": 100,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "react-press",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "schema": "public",
+              "name": "meta_model"
+            },
+            "object_relationships": [
+              {
+                "name": "meta_type",
+                "using": {
+                  "manual_configuration": {
+                    "remote_table": {
+                      "schema": "public",
+                      "name": "meta_type"
+                    },
+                    "insertion_order": null,
+                    "column_mapping": {
+                      "meta_type_id": "id"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "model",
+                "using": {
+                  "manual_configuration": {
+                    "remote_table": {
+                      "schema": "public",
+                      "name": "models"
+                    },
+                    "insertion_order": null,
+                    "column_mapping": {
+                      "model_id": "id"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "meta_type"
+            },
+            "object_relationships": [
+              {
+                "name": "type",
+                "using": {
+                  "manual_configuration": {
+                    "remote_table": {
+                      "schema": "public",
+                      "name": "types"
+                    },
+                    "insertion_order": null,
+                    "column_mapping": {
+                      "type_id": "id"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "models"
+            },
+            "object_relationships": [
+              {
+                "name": "type",
+                "using": {
+                  "foreign_key_constraint_on": "type_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "meta_models",
+                "using": {
+                  "manual_configuration": {
+                    "remote_table": {
+                      "schema": "public",
+                      "name": "meta_model"
+                    },
+                    "insertion_order": null,
+                    "column_mapping": {
+                      "id": "model_id"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "types"
+            },
+            "array_relationships": [
+              {
+                "name": "meta_types",
+                "using": {
+                  "manual_configuration": {
+                    "remote_table": {
+                      "schema": "public",
+                      "name": "meta_type"
+                    },
+                    "insertion_order": null,
+                    "column_mapping": {
+                      "id": "type_id"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "models",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "type_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "models"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "users"
+            }
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "use_prepared_statements": false,
+            "database_url": "postgres://postgres:postgrespassword@postgres:5432/postgres",
+            "isolation_level": "read-committed"
+          }
+        }
+      }
+    ],
+    "custom_types": {
+      "objects": [
+        {
+          "name": "Todos",
+          "fields": [
+            {
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "type": "ID"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
